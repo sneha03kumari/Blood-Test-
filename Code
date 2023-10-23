@@ -1,0 +1,235 @@
+#include <iostream>
+using namespace std;
+class ElectrolytePanel
+{
+public:
+void ElectrolytePanelTest(float sodiumLevel, float potassiumLevel, float chlorideLevel)
+{
+int normal=0;
+if (sodiumLevel < 135)
+{
+cout<< "Low sodium level. It may indicate hyponatremia.\n";
+cout<<"Normal level:135-145\n";
+cout<<"Detected level:"<<sodiumLevel<<"\n";
+normal++;
+}
+else if (sodiumLevel > 145)
+{
+cout<< "High sodium level. It may indicate hypernatremia.\n";
+cout<<"Normal level:135-145\n";
+cout<<"Detected level:"<<sodiumLevel<<"\n";
+normal++;
+}
+else
+{
+cout<<"Sodium level is normal\n";
+cout<<"Normal level:135-145\n";
+cout<<"Detected level:"<<sodiumLevel<<"\n";
+}
+if (potassiumLevel < 3.5)
+{
+cout<<"Low potassium level. It may indicate hypokalemia.\n";
+cout<<"Normal level:3.5-5.0\n";
+cout<<"Detected level:"<<potassiumLevel<<"\n";
+normal++;
+}
+else if (potassiumLevel > 5.0)
+{
+cout<<"High potassium level. It may indicate hyperkalemia.\n";
+cout<<"Normal level:3.5-5.0\n";
+cout<<"Detected level:"<<potassiumLevel<<"\n";
+normal++;
+}
+else
+{
+cout<<"Potassium level is normal\n";
+cout<<"Normal level:3.5-5.0\n";
+cout<<"Detected level:"<<potassiumLevel<<"\n";
+}
+if (chlorideLevel < 98)
+{
+cout<<"Low chloride level. It may indicate hypochloremia.\n";
+cout<<"Normal level:98-107\n";
+cout<<"Detected level:"<<chlorideLevel<<"\n";
+normal++;
+}
+else if (chlorideLevel > 107){
+cout<<"High chloride level. It may indicate hyperchloremia.\n";
+cout<<"Normal level:98-107\n";
+cout<<"Detected level:"<<chlorideLevel<<"\n";
+normal++;
+}
+else
+{
+cout<<"Chloride level is normal\n";
+cout<<"Normal level:98-107\n";
+cout<<"Detected level:"<<chlorideLevel<<"\n";
+}
+if(normal==0)
+cout<<"Electrolyte levels are within normal range.";
+}
+};
+
+// Base class for patients
+class Patient {
+protected:
+double sugarLevel;
+public:
+virtual void detectSugarLevel(){                //Virtual Function 
+cout<<"Enter sugar level of a patient: ";       
+cin>>sugarLevel;
+}
+virtual void checkSugarLevel()=0;            //Pure Virtual Function
+};  
+
+//Derived class
+class Type1DiabetesPatient : public Patient {
+public:
+void checkSugarLevel(){
+// Sugar level checking logic for Type 1 Diabetes patients
+cout<<"RESULT\n";
+cout<<"------\n";
+if(sugarLevel<70.0) {
+cout<<"Sugar level of a patient is below the normal range."<<endl;
+}
+else if(sugarLevel>=70.0 && sugarLevel<=99.0) {
+cout<<"Sugar level of a patient is in the normal range."<<endl;
+}
+else if(sugarLevel>100.0 && sugarLevel<=125.0) {
+cout<<"Sugar level of a patient is above the normal range."<<endl;
+}
+else {
+cout<<"Sugar level of apatient is within the normal range and having diabetes problem."<<endl;
+}
+}
+};
+
+class Type2DiabetesPatient : public Patient {
+public:
+void checkSugarLevel(){
+// Sugar level checking logic for Type 2 Diabetes patients
+cout<<"RESULT\n";
+cout<<"------\n";
+if(sugarLevel<140.0) {
+cout<<"Sugar level of a patient is below the normal range."<<endl;
+}
+else if(sugarLevel>=140.0 && sugarLevel<=200.0) {
+cout<<"Sugar level of a patient is in the normal range."<<endl;
+}
+else {
+cout<<"Sugar level of apatient is within the normal range and having diabetes problem."<<endl;
+}
+}
+};
+
+class KidneyHealth {
+public:
+double creatinineLevel;
+double glomerularFiltrationRate;
+
+void getPatientData() {
+cout<<"Enter the patient's creatinine level:\t";
+cin >> creatinineLevel;
+cout << "Enter the patient's estimated GFR:\t";
+cin >> glomerularFiltrationRate;
+}
+
+void checkKidneyHealth() {
+if (creatinineLevel <= 1.0 && glomerularFiltrationRate >= 90) {
+cout << "The patient kidney health appears to be normal."<<endl;
+} else if (creatinineLevel > 1.0 && glomerularFiltrationRate < 60) {
+cout<<"The patient may have impaired kidney function. Consult a healthcare professional."<<endl;
+} else {
+cout<<"The patient kidney health is in the intermediate range. Further evaluation may be needed."<<endl;
+}
+}
+
+KidneyHealth operator+(const KidneyHealth& other){
+KidneyHealth result;
+result.creatinineLevel=creatinineLevel;
+result.glomerularFiltrationRate=glomerularFiltrationRate;
+return result;
+}
+};
+
+int main() {
+int i;
+
+while(i!=4){
+cout<<"**********************************************************************\n";
+cout<<"TESTS AVAILABLE\n";
+cout<<"---------------\n";
+cout<<"1.Test for Electrolyte Panel\n";
+cout<<"2.Test for Sugar Level\n";
+cout<<"3.Test to check whether your kidney is healthy or not.\n";
+cout<<"4.Exit\n";
+
+cout<<"Enter test to be conducted:\n";
+cin>>i;
+
+switch(i){
+case 1:
+float sodiumLevel,potassiumLevel,chlorideLevel;
+ElectrolytePanel ep;
+cout<<"=== Electrolyte Panel ===\n";
+cout<<"Enter electrolyte levels\n";
+cout<<"Enter sodium level:\t";
+cin>>sodiumLevel;
+cout<<"Enter potassium level:\t";
+cin>>potassiumLevel;
+cout<<"Enter chloride level:\t";
+cin>>chlorideLevel;
+cout<<"RESULT\n";
+cout<<"------\n";
+ep.ElectrolytePanelTest(sodiumLevel, potassiumLevel, chlorideLevel);
+break;
+
+case 2:
+int a;
+cout<<"Enter 1(Fasting) and 2(Post meal):";
+cin>>a;
+if(a==1){
+Patient*d;
+Type1DiabetesPatient e;
+d=&e;
+d->detectSugarLevel();
+d->checkSugarLevel();
+}
+else if(a==2){
+Patient *d;                     //base pointer
+Type2DiabetesPatient e;        //derived object
+d=&e;                          
+d->detectSugarLevel();
+d->checkSugarLevel();
+}
+else{
+cout<<"Invaild Entry\n";
+}
+break;
+
+case 3:
+KidneyHealth p1, p2, p3;
+cout << "=== Blood Creatinine Test ==="<<endl;
+p1.getPatientData();
+p2= p1;
+cout<<"RESULT\n";
+cout<<"------\n";
+p2.checkKidneyHealth();
+break;
+
+case 4:
+cout<<"**********Thank You**********";
+exit(0);
+default:
+cout<<"Invalid entry\n";
+}
+
+}
+return 0;
+}
+
+
+
+
+
+
