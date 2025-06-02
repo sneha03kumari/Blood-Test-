@@ -1,4 +1,4 @@
-# Blood Test Panel –
+# Blood Test Panel 
 This blood test panel program is designed to evaluate key aspects of a person’s health by checking electrolyte balance, blood sugar levels, and kidney function. It tests sodium, potassium, and chloride levels to assess electrolyte imbalances, which are critical for maintaining bodily functions. The program also evaluates blood sugar levels specifically for Type 1 and Type 2 diabetes patients using tailored thresholds. Additionally, it assesses kidney health by analyzing creatinine levels and estimated glomerular filtration rate (GFR) to detect potential kidney impairment. The tool provides clear, easy-to-understand feedback based on standard medical reference ranges, helping users identify potential health issues early through a simple interactive interface.
 
 ## 🎯 Features
